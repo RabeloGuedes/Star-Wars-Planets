@@ -12,6 +12,7 @@ export default function Form(props) {
     setComparisonNumber,
     comparisonNumber,
     handleNumericFilters,
+    columnsFilters,
   } = props;
   return (
     <div>
@@ -27,7 +28,15 @@ export default function Form(props) {
         value={ columnFilter }
         onChange={ ({ target: { value } }) => setColumnFilter(value) }
       >
-        <option value="population">
+        {columnsFilters.map((filter) => (
+          <option
+            key={ Math.random() }
+            value={ filter }
+          >
+            { filter }
+          </option>
+        ))}
+        {/* <option value="population">
           population
         </option>
         <option value="orbital_period">
@@ -41,7 +50,7 @@ export default function Form(props) {
         </option>
         <option value="surface_water">
           surface_water
-        </option>
+        </option> */}
       </select>
       <select
         data-testid="comparison-filter"
@@ -85,4 +94,5 @@ Form.propTypes = {
   setColumnFilter: PropTypes.func,
   setComparisonFilter: PropTypes.func,
   setComparisonNumber: PropTypes.func,
+  columnsFilters: PropTypes.arrayOf(PropTypes.string),
 }.isRequired;

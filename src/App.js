@@ -11,6 +11,13 @@ function App() {
   const [columnFilter, setColumnFilter] = useState('population');
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [comparisonNumber, setComparisonNumber] = useState(0);
+  const [columnsFilters, setColumnsFilters] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
   useEffect(() => {
     const apiRequest = async () => {
       const apiResponse = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
@@ -40,7 +47,7 @@ function App() {
       })), newFilteredPlanets);
 
     setFilteredPlanets(multipleFilters);
-  }, [planets, planetNameInput, filters]);
+  }, [planets, planetNameInput, filters, columnsFilters]);
 
   const handleNumericFilters = () => {
     const newFilter = {
@@ -49,6 +56,9 @@ function App() {
       comparisonNumber,
     };
     setFilters([...filters, newFilter]);
+    const newcolumnsFilters = columnsFilters
+      .filter((filter) => (filter !== columnFilter));
+    setColumnsFilters(newcolumnsFilters);
   };
 
   return (
@@ -64,6 +74,8 @@ function App() {
         comparisonNumber={ comparisonNumber }
         handleNumericFilters={ handleNumericFilters }
         filters={ filters }
+        columnsFilters={ columnsFilters }
+        setColumnsFilters={ setColumnsFilters }
       />
       <Table planets={ filteredPlanets } />
     </div>
