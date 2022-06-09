@@ -18,6 +18,7 @@ function App() {
     'rotation_period',
     'surface_water',
   ]);
+
   useEffect(() => {
     const apiRequest = async () => {
       const apiResponse = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
@@ -61,6 +62,38 @@ function App() {
     setColumnsFilters(newcolumnsFilters);
   };
 
+  const deleteFilter = ({ target }) => {
+    const parentPosition = target.parentElement.attributes.value.value;
+    const newFilters = filters
+      .filter((filter) => filter.columnFilter !== parentPosition);
+    setFilters(newFilters);
+    const filtersArray = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    const stringsColumnsFilters = filters
+      .map((filter) => filter.columnFilter);
+    const newColumnsFilters = filtersArray
+      .filter((filter) => !(stringsColumnsFilters.includes(filter)));
+    newColumnsFilters.push(parentPosition);
+    setColumnsFilters(newColumnsFilters);
+  };
+
+  const removeAllFilters = () => {
+    const filtersArray = [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ];
+    setFilters([]);
+    setColumnsFilters(filtersArray);
+  };
+
   return (
     <div>
       <Form
@@ -76,6 +109,8 @@ function App() {
         filters={ filters }
         columnsFilters={ columnsFilters }
         setColumnsFilters={ setColumnsFilters }
+        deleteFilter={ deleteFilter }
+        removeAllFilters={ removeAllFilters }
       />
       <Table planets={ filteredPlanets } />
     </div>
