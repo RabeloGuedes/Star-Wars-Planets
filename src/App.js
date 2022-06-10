@@ -5,12 +5,19 @@ import './App.css';
 
 function App() {
   const [planets, setPlanets] = useState([]);
+
   const [planetNameInput, setPlanetName] = useState('');
+
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+
   const [filters, setFilters] = useState([]);
+
   const [columnFilter, setColumnFilter] = useState('population');
+
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
+
   const [comparisonNumber, setComparisonNumber] = useState(0);
+
   const [columnsFilters, setColumnsFilters] = useState([
     'population',
     'orbital_period',
@@ -18,17 +25,27 @@ function App() {
     'rotation_period',
     'surface_water',
   ]);
+  const [ordenateFilter, setOrdenateFilter] = useState('population');
+
+  const [ordenateBy, setOrdenateBy] = useState();
+
+  const [ordenationMethod, setOrdenationMethod] = useState('ASC');
 
   useEffect(() => {
     const apiRequest = async () => {
       const apiResponse = await fetch('https://swapi-trybe.herokuapp.com/api/planets/');
       const request = await apiResponse.json();
       const { results } = request;
+      results
+        .sort((previousPlanet, nextPlanet) => (
+          +(previousPlanet.name > nextPlanet.name)
+          || +(previousPlanet.name === nextPlanet.name) - 1
+        ));
       setPlanets(results);
       setFilteredPlanets(results);
     };
     apiRequest();
-  }, []);
+  }, [columnFilter]);
 
   useEffect(() => {
     const newFilteredPlanets = planets
@@ -94,6 +111,30 @@ function App() {
     setColumnsFilters(filtersArray);
   };
 
+  const ordenate = () => {
+    setOrdenateBy(ordenateFilter);
+  };
+
+  useEffect(() => {
+    switch (ordenationMethod) {
+    case 'ASC':
+      setFilteredPlanets(filteredPlanets
+        .sort((previousPlanet, nextPlanet) => (
+          +(previousPlanet.ordenateFilter > nextPlanet.ordenateFilter)
+          || +(previousPlanet.ordenateFilter === nextPlanet.ordenateFilter) - 1
+        )));
+      break;
+    case 'DESC':
+      setFilteredPlanets(filteredPlanets
+        .sort((previousPlanet, nextPlanet) => (
+          +(previousPlanet.ordenateFilter < nextPlanet.ordenateFilter)
+          || +(previousPlanet.ordenateFilter === nextPlanet.ordenateFilter) - 1
+        )));
+      break;
+    default: return true;
+    }
+  }, [ordenationMethod, filteredPlanets]);
+
   return (
     <div>
       <Form
@@ -111,6 +152,11 @@ function App() {
         setColumnsFilters={ setColumnsFilters }
         deleteFilter={ deleteFilter }
         removeAllFilters={ removeAllFilters }
+        ordenate={ ordenate }
+        ordenateFilter={ ordenateFilter }
+        setOrdenateFilter={ setOrdenateFilter }
+        setOrdenationMethod={ setOrdenationMethod }
+        ordenationMethod={ ordenationMethod }
       />
       <Table planets={ filteredPlanets } />
     </div>

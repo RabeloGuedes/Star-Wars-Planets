@@ -16,7 +16,28 @@ export default function Form(props) {
     filters,
     deleteFilter,
     removeAllFilters,
+    ordenate,
+    ordenateFilter,
+    setOrdenateFilter,
+    setOrdenationMethod,
   } = props;
+  const filtersArray = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const options = (filter) => (
+    <option
+      key={ Math.random() }
+      value={ filter }
+    >
+      { filter }
+    </option>
+  );
+
   return (
     <div>
       <input
@@ -31,14 +52,7 @@ export default function Form(props) {
         value={ columnFilter }
         onChange={ ({ target: { value } }) => setColumnFilter(value) }
       >
-        {columnsFilters.map((filter) => (
-          <option
-            key={ Math.random() }
-            value={ filter }
-          >
-            { filter }
-          </option>
-        ))}
+        {columnsFilters.map((filter) => options(filter))}
       </select>
       <select
         data-testid="comparison-filter"
@@ -46,13 +60,13 @@ export default function Form(props) {
         onChange={ ({ target: { value } }) => setComparisonFilter(value) }
       >
         <option value="maior que">
-          greater than
+          maior que
         </option>
         <option value="menor que">
-          smaller than
+          menor que
         </option>
         <option value="igual a">
-          equal to
+          igual a
         </option>
       </select>
       <input
@@ -75,6 +89,40 @@ export default function Form(props) {
         onClick={ removeAllFilters }
       >
         Remover todos os filtros
+      </button>
+      <select
+        data-testid="column-sort"
+        onChange={ ({ target: { value } }) => setOrdenateFilter(value) }
+        value={ ordenateFilter }
+      >
+        {filtersArray.map((filter) => options(filter))}
+      </select>
+      <label htmlFor="column-sort-input">
+        <input
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          type="radio"
+          name="column-sort-input"
+          onClick={ ({ target: { value } }) => (setOrdenationMethod(value)) }
+        />
+        Ascendente
+      </label>
+      <label htmlFor="column-sort-input">
+        <input
+          data-testid="column-sort-input-desc"
+          value="DESC"
+          type="radio"
+          name="column-sort-input"
+          onClick={ ({ target: { value } }) => (setOrdenationMethod(value)) }
+        />
+        Descendente
+      </label>
+      <button
+        type="button"
+        data-testid="column-sort-button"
+        onClick={ ordenate }
+      >
+        Ordenar
       </button>
       <ul>
         {filters.map((filter) => (

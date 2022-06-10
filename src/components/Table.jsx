@@ -65,7 +65,7 @@ export default function Table(props) {
             url,
           }) => (
             <tr key={ name }>
-              <td>
+              <td data-testid="planet-name">
                 { name }
               </td>
               <td>
