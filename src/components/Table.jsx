@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../services/PlanetsContext';
 
 const Table = () => {
-  const { planets, categories } = useContext(PlanetsContext);
+  const { filteredPlanets, categories } = useContext(PlanetsContext);
   return (
     <table>
       <thead>
@@ -15,7 +15,7 @@ const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {planets.map((planet) => (
+        {filteredPlanets.map((planet) => (
           <tr key={ Math.random() }>
             {Object.values(categories).map((category) => (
               <td key={ Math.random() }>

@@ -34,16 +34,34 @@ export default function Provider({ children }) {
     },
   };
   const [planets, setPlanets] = useState([]);
+  const [planetName, setPlanetName] = useState('');
+  const [filteredPlanets, setfilteredPlanets] = useState([]);
 
+  const search = {
+    filterByName: {
+      name: planetName,
+    },
+  };
+
+  context.search = search;
+  context.filteredPlanets = filteredPlanets;
+  context.setPlanetName = setPlanetName;
   context.planets = planets;
 
   useEffect(() => {
     const callApi = async () => {
       const receivedPlanets = await apiRequest();
       setPlanets(receivedPlanets);
+      setfilteredPlanets(receivedPlanets);
     };
     callApi();
-  });
+  }, []);
+
+  useEffect(() => {
+    const newFilteredPlanets = planets
+      .filter(({ name }) => name.toLowerCase().includes(planetName));
+    setfilteredPlanets(newFilteredPlanets);
+  }, [planetName, planets]);
 
   return (
     <PlanetsContext.Provider value={ context }>
