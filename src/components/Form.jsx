@@ -33,7 +33,18 @@ export default function Form() {
     setFilters([...filters, newFilter]);
     const newColumnOptions = columnOptions.filter((filter) => filter !== columnOption);
     setColumnOptions(newColumnOptions);
+    if (columnOptions.length > 1) setColumnOption(columnOptions[1]);
+    else setColumnOption(columnOptions[0]);
   };
+
+  const deleteFilter = ({ target: { id } }) => {
+    const newFilters = filters.filter((filter) => (
+      filter.columnOption !== id
+    ));
+    setFilters(newFilters);
+    columnOptions.push(id);
+  };
+
   return (
     <form>
       <input
@@ -84,20 +95,43 @@ export default function Form() {
       >
         Filtrar
       </button>
+      <button
+        data-testid="button-remove-filters"
+        type="button"
+        onClick={ () => {
+          setFilters([]);
+          setColumnOptions([
+            'population',
+            'orbital_period',
+            'diameter',
+            'rotation_period',
+            'surface_water',
+          ]);
+        } }
+      >
+        Resetar filtros
+      </button>
       {filters.map((filter) => (
-        <p key={ Math.random() }>
-          {filter.columnOption}
-          {' '}
-          {filter.comparisonOption}
-          {' '}
-          {filter.inputValue}
-          {' '}
+        <div
+          data-testid="filter"
+          key={ Math.random() }
+        >
+          <p>
+            {filter.columnOption}
+            {' '}
+            {filter.comparisonOption}
+            {' '}
+            {filter.inputValue}
+            {' '}
+          </p>
           <button
             type="button"
+            id={ filter.columnOption }
+            onClick={ deleteFilter }
           >
             Deletar
           </button>
-        </p>
+        </div>
       ))}
     </form>
   );
