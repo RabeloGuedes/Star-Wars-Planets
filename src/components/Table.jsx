@@ -18,8 +18,14 @@ const Table = () => {
         {filteredPlanets.map((planet) => (
           <tr key={ Math.random() }>
             {Object.values(categories).map((category) => (
-              <td key={ Math.random() }>
-                {planet[category]}
+              <td
+                key={ Math.random() }
+              >
+                {category === 'name' ? (
+                  <p data-testid="planet-name">{planet[category]}</p>
+                ) : (
+                  <p>{planet[category]}</p>
+                )}
               </td>
             ))}
           </tr>

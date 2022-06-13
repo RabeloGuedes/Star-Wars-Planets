@@ -5,7 +5,7 @@ export default function Form() {
   const {
     search: {
       filterByName: {
-        name,
+        name: planetName,
         setPlanetName,
       },
       filterByColumn: {
@@ -22,6 +22,12 @@ export default function Form() {
       setColumnOptions,
     },
     comparisonOptions,
+    order: {
+      orderColumn,
+    },
+    setOrder,
+    ordinance,
+    setOrdinance,
   } = useContext(PlanetsContext);
 
   const handleNumericFilter = () => {
@@ -45,12 +51,16 @@ export default function Form() {
     columnOptions.push(id);
   };
 
+  const handleColumnSort = ({ target: { name, value: sortValue } }) => {
+    setOrdinance((prevState) => ({ ...prevState, [name]: sortValue }));
+  };
+
   return (
     <form>
       <input
         type="text"
         data-testid="name-filter"
-        value={ name }
+        value={ planetName }
         placeholder="Planet Name"
         onChange={ ({ target: { value } }) => setPlanetName(value) }
       />
@@ -110,6 +120,50 @@ export default function Form() {
         } }
       >
         Resetar filtros
+      </button>
+      <select
+        data-testid="column-sort"
+        name="column"
+        value={ ordinance.column }
+        onChange={ (e) => handleColumnSort(e) }
+      >
+        {orderColumn.map((order) => (
+          <option
+            key={ Math.random() }
+            value={ order }
+          >
+            { order }
+          </option>
+        ))}
+      </select>
+      <label htmlFor="sort-ordenation">
+        <input
+          data-testid="column-sort-input-asc"
+          type="radio"
+          id="sort-ordenation"
+          name="sort"
+          value="ASC"
+          onChange={ (e) => handleColumnSort(e) }
+        />
+        Ascendente
+      </label>
+      <label htmlFor="sort-ordenation">
+        <input
+          data-testid="column-sort-input-desc"
+          type="radio"
+          id="sort-ordenation"
+          name="sort"
+          value="DESC"
+          onChange={ (e) => handleColumnSort(e) }
+        />
+        Descendente
+      </label>
+      <button
+        data-testid="column-sort-button"
+        type="button"
+        onClick={ () => setOrder(ordinance) }
+      >
+        Ordenar
       </button>
       {filters.map((filter) => (
         <div

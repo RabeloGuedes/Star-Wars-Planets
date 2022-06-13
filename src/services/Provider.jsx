@@ -33,7 +33,7 @@ export default function Provider({ children }) {
   };
   const [planets, setPlanets] = useState([]);
   const [planetName, setPlanetName] = useState('');
-  const [filteredPlanets, setfilteredPlanets] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [columnOption, setColumnOption] = useState('population');
   const [comparisonOption, setComparisonOption] = useState('maior que');
   const [inputValue, setValue] = useState(0);
@@ -45,6 +45,18 @@ export default function Provider({ children }) {
     'rotation_period',
     'surface_water',
   ]);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+    orderColumn: [
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ],
+  });
+  const [ordinance, setOrdinance] = useState(order);
 
   const search = {
     filterByName: {
@@ -65,6 +77,40 @@ export default function Provider({ children }) {
     setColumnOptions,
   };
 
+  const checkingValues = (previousPlanet, currentPlanet, multiplicationFactor) => {
+    const MINUS_ONE = -1;
+    if (previousPlanet === 'unknown') return 1 * multiplicationFactor;
+    if (currentPlanet === 'unknown') return MINUS_ONE * multiplicationFactor;
+    if (Number(previousPlanet) > Number(currentPlanet)) return 1;
+    if (Number(previousPlanet) < Number(currentPlanet)) return MINUS_ONE;
+  };
+
+  useEffect(() => {
+    const ASC = 1;
+    const DESC = -1;
+    switch (order.sort) {
+    case 'ASC':
+      return setFilteredPlanets((prevState) => [...prevState]
+        .sort((previousPlanet, currentPlanet) => checkingValues(
+          previousPlanet[order.column],
+          currentPlanet[order.column],
+          ASC,
+        )));
+    case 'DESC':
+      return setFilteredPlanets((prevState) => [...prevState]
+        .sort((previousPlanet, currentPlanet) => checkingValues(
+          currentPlanet[order.column],
+          previousPlanet[order.column],
+          DESC,
+        )));
+    default: return true;
+    }
+  }, [order]);
+
+  context.order = order;
+  context.ordinance = ordinance;
+  context.setOrder = setOrder;
+  context.setOrdinance = setOrdinance;
   context.search = search;
   context.filteredPlanets = filteredPlanets;
   context.planets = planets;
@@ -72,8 +118,13 @@ export default function Provider({ children }) {
   useEffect(() => {
     const callApi = async () => {
       const receivedPlanets = await apiRequest();
+      receivedPlanets
+        .sort((previousPlanet, currentPlanet) => (
+          +(previousPlanet.name > currentPlanet.name)
+          || +(previousPlanet.name === currentPlanet.name) - 1
+        ));
       setPlanets(receivedPlanets);
-      setfilteredPlanets(receivedPlanets);
+      setFilteredPlanets(receivedPlanets);
     };
     callApi();
   }, []);
@@ -96,7 +147,7 @@ export default function Provider({ children }) {
       })
     ), newFilteredPlanets);
 
-    setfilteredPlanets(multipleFilters);
+    setFilteredPlanets(multipleFilters);
   }, [planetName, planets, filters]);
 
   return (
