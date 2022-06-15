@@ -5,4 +5,5 @@ const apiRequest = async () => {
   return results;
 };
 
+
 export default apiRequest;

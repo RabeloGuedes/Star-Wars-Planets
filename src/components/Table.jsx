@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../services/PlanetsContext';
+import { StyledTable } from '../styled/StyledTable';
 
 const Table = () => {
   const { filteredPlanets, categories } = useContext(PlanetsContext);
   return (
-    <table>
+    <StyledTable>
       <thead>
         <tr>
           {Object.values(categories).map((category) => (
             <th key={ Math.random() }>
-              {category}
+              <h2>
+                {category}
+              </h2>
             </th>
           ))}
         </tr>
@@ -17,7 +20,7 @@ const Table = () => {
       <tbody>
         {filteredPlanets.map((planet) => (
           <tr key={ Math.random() }>
-            {Object.values(categories).map((category) => (
+            {Object.keys(categories).map((category) => (
               <td
                 key={ Math.random() }
               >
@@ -26,12 +29,12 @@ const Table = () => {
                 ) : (
                   <p>{planet[category]}</p>
                 )}
-              </td>
-            ))}
+              </td>)
+            )}
           </tr>
         ))}
       </tbody>
-    </table>
+    </StyledTable>
   );
 };
 

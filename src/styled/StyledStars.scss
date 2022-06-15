@@ -1,0 +1,86 @@
+.stars {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+  
+$dimensions : 2px;
+$all-stars: 500;
+$white: white;
+
+.star {
+  position: absolute;
+  width:$dimensions;
+  height: $dimensions;
+  opacity: 0;
+  border-radius: 50%;
+
+  
+  @for $i from 1 through $all-stars {
+    &:nth-child(#{$i}) {
+
+      background-color: $white;
+
+
+      $x: random(100);
+      $y: random(100);
+      $min: 20;
+      $max: 80;
+
+      @while $min < $x and $x < $max and $min < $y and $y < $max {
+        $x: random(100);
+        $y: random(100);
+      }
+
+      transform: translate($x*1vw, $y*1vh) scale(2);
+
+      $duration: (random(100)*.01+2)*1s;
+
+      $delay: (random(300)*.01)*1s;
+
+      $func: cubic-bezier(0.970, 0.215, 0.980, 0.770);
+      $func: cubic-bezier(0.770, 0.240, 0.780, 0.495);
+      $func: cubic-bezier(0.750, 0.210, 0.890, 0.475);
+
+
+      animation: move $duration $func $delay infinite;
+
+    }
+  }
+}
+
+
+@keyframes move {
+  0% {
+    transform: translate(50vw, 50vh) scale(0.2);
+  }
+
+  20% {
+    opacity: 0.1;
+  }
+
+  30% {
+    opacity: 0.2;
+  }
+
+  40% {
+    opacity: 0.3;
+  }
+
+  60% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.8;
+  }
+
+  90% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+

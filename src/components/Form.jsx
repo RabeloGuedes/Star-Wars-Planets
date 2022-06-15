@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../services/PlanetsContext';
+import { StyledForm, StyledInput } from '../styled/StyledForm';
 
 export default function Form() {
   const {
@@ -56,8 +57,8 @@ export default function Form() {
   };
 
   return (
-    <form>
-      <input
+    <StyledForm>
+      <StyledInput
         type="text"
         data-testid="name-filter"
         value={ planetName }
@@ -92,7 +93,7 @@ export default function Form() {
           </option>
         ))}
       </select>
-      <input
+      <StyledInput
         data-testid="value-filter"
         type="number"
         value={ inputValue }
@@ -187,6 +188,6 @@ export default function Form() {
           </button>
         </div>
       ))}
-    </form>
+    </StyledForm>
   );
 }

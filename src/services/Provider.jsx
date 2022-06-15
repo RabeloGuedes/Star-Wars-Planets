@@ -17,13 +17,13 @@ export default function Provider({ children }) {
     },
     categories: {
       name: 'name',
-      rotation_period: 'rotation_period',
-      orbital_period: 'orbital_period',
+      rotation_period: 'rotation period',
+      orbital_period: 'orbital period',
       diameter: 'diameter',
       climate: 'climate',
       gravity: 'gravity',
       terrain: 'terrain',
-      surface_water: 'surface_water',
+      surface_water: 'surface water',
       population: 'population',
       films: 'films',
       created: 'created',
@@ -40,20 +40,20 @@ export default function Provider({ children }) {
   const [filters, setFilters] = useState([]);
   const [columnOptions, setColumnOptions] = useState([
     'population',
-    'orbital_period',
+    'orbital period',
     'diameter',
-    'rotation_period',
-    'surface_water',
+    'rotation period',
+    'surface water',
   ]);
   const [order, setOrder] = useState({
     column: 'population',
     sort: 'ASC',
     orderColumn: [
       'population',
-      'orbital_period',
+      'orbital period',
       'diameter',
-      'rotation_period',
-      'surface_water',
+      'rotation period',
+      'surface water',
     ],
   });
   const [ordinance, setOrdinance] = useState(order);
@@ -115,14 +115,14 @@ export default function Provider({ children }) {
   context.filteredPlanets = filteredPlanets;
   context.planets = planets;
 
-  useEffect(() => {
+  useEffect(async () => {
     const callApi = async () => {
       const receivedPlanets = await apiRequest();
       receivedPlanets
         .sort((previousPlanet, currentPlanet) => (
           +(previousPlanet.name > currentPlanet.name)
           || +(previousPlanet.name === currentPlanet.name) - 1
-        ));
+        ));   
       setPlanets(receivedPlanets);
       setFilteredPlanets(receivedPlanets);
     };
