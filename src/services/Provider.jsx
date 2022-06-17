@@ -7,13 +7,13 @@ export default function Provider({ children }) {
   const context = {
     filters: {
       column: 'population',
-      comparison: 'maior que',
+      comparison: 'greater than',
       value: 0,
     },
     comparisonOptions: {
-      maior_que: 'maior que',
-      menor_que: 'menor que',
-      igual_a: 'igual a',
+      maior_que: 'greater than',
+      menor_que: 'smaller than',
+      igual_a: 'equal to',
     },
     categories: {
       name: 'name',
@@ -35,25 +35,25 @@ export default function Provider({ children }) {
   const [planetName, setPlanetName] = useState('');
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [columnOption, setColumnOption] = useState('population');
-  const [comparisonOption, setComparisonOption] = useState('maior que');
+  const [comparisonOption, setComparisonOption] = useState('greater than');
   const [inputValue, setValue] = useState(0);
   const [filters, setFilters] = useState([]);
   const [columnOptions, setColumnOptions] = useState([
     'population',
-    'orbital period',
+    'orbital_period',
     'diameter',
-    'rotation period',
-    'surface water',
+    'rotation_period',
+    'surface_water',
   ]);
   const [order, setOrder] = useState({
     column: 'population',
     sort: 'ASC',
     orderColumn: [
       'population',
-      'orbital period',
+      'orbital_period',
       'diameter',
-      'rotation period',
-      'surface water',
+      'rotation_period',
+      'surface_water',
     ],
   });
   const [ordinance, setOrdinance] = useState(order);
@@ -136,11 +136,11 @@ export default function Provider({ children }) {
     const multipleFilters = filters.reduce((acc, currFilter) => (
       acc.filter((planet) => {
         switch (currFilter.comparisonOption) {
-        case 'maior que':
+        case 'greater than':
           return planet[currFilter.columnOption] > Number(currFilter.inputValue);
-        case 'menor que':
+        case 'smaller than':
           return planet[currFilter.columnOption] < Number(currFilter.inputValue);
-        case 'igual a':
+        case 'equal to':
           return planet[currFilter.columnOption] === currFilter.inputValue;
         default: return true;
         }

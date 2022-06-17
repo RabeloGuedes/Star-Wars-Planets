@@ -2,6 +2,7 @@
   position: absolute;
   width: 100vw;
   height: 100vh;
+  z-index: -1;
 }
   
 $dimensions : 2px;
@@ -52,7 +53,7 @@ $white: white;
 
 @keyframes move {
   0% {
-    transform: translate(50vw, 50vh) scale(0.2);
+    transform: translate(50vw, 50vh) scale(.2);
   }
 
   20% {

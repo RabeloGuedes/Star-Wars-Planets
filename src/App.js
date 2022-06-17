@@ -4,6 +4,7 @@ import Stars from './components/Stars';
 import Header from './components/Header';
 import Table from './components/Table';
 import Form from './components/Form';
+import Footer from './components/Footer';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -32,6 +33,7 @@ function App() {
       <Header />
       <Form />
       <Table />
+      <Footer />
     </Provider>
   );
 }

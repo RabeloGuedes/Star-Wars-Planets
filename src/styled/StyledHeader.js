@@ -36,10 +36,12 @@ export const StyledHeader = styled.header`
   .star-img {
     margin-top: 30px;
     animation: ${ starAnimation } 5s linear;
+    z-index: -2;
   }
 
   .wars-img {
     animation: ${ warsAnimation } 5s linear;
     margin-bottom: 50px;
+    z-index: -2;
   }
 `;
