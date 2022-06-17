@@ -25,7 +25,7 @@ export const StyledTable = styled.table`
   tr > th:nth-of-type(1) {
     border-radius: 25px 0 0 0;
   }
-  tr > th:nth-of-type(13) {
+  tr > th:nth-of-type(9) {
     border-radius: 0 25px 0 0;
   }
 
@@ -37,7 +37,7 @@ export const StyledTable = styled.table`
     border-radius: 0 0 0 25px;
   }
 
-  tr:nth-of-type(10) > td:nth-of-type(13) {
+  tr:nth-of-type(10) > td:nth-of-type(9) {
     border-radius: 0 0 25px 0;
   }
 
@@ -46,11 +46,11 @@ export const StyledTable = styled.table`
     justify-content: center;
     algin-item: center;
     flex-direction: column;
-    width: calc(100% / 13);
+    width: calc(100% / 9);
     overflow-wrap: break-word;
     text-align: center;
     border: 1px solid var(--gray);
-    padding: 0 15px;
+    padding: 15px;
   }
   color: white;
 `;

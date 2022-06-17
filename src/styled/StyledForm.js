@@ -15,7 +15,7 @@ export const StyledInput = styled.input`
   margin: 0 auto;
 `;
 
-export const StyledFormChild = styled.label`
+export const StyledFormChild = styled.div`
 --gray: #555555;
   color: white;
   display: flex;
@@ -50,6 +50,12 @@ export const StyledFormChild = styled.label`
     border: 2px solid var(--gray);
     color: white;
     padding: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  button:hover {
+    background-color: #FDEB00;
+    color: black;
   }
 
   label {
@@ -77,6 +83,7 @@ export const StyledFormChild = styled.label`
 
   .styled-form-child-div button {
     margin-right: 10px;
+    transition: background-color .2s;
   }
 
   .styled-form-child-div button:hover {
@@ -85,5 +92,8 @@ export const StyledFormChild = styled.label`
 
   h1 {
     text-align: center;
+  }
+  .sort-label:hover {
+    cursor: pointer;
   }
 `;

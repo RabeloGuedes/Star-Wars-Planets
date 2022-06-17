@@ -153,10 +153,7 @@ export default function Form() {
                 Delete
               </button>
             </div>
-          )))
-          
-          }
-        
+          )))}
       </StyledFormChild>
       <StyledFormChild>
         <h3>Sorting</h3>
@@ -175,22 +172,28 @@ export default function Form() {
             </option>
           ))}
         </select>
-        <label htmlFor="sort-ordenation">
-          <input
+        <label
+          htmlFor="sort-asc"
+          className="sort-label"
+        >
+        <input
             data-testid="column-sort-input-asc"
             type="radio"
-            id="sort-ordenation"
+            id="sort-asc"
             name="sort"
             value="ASC"
             onChange={ (e) => handleColumnSort(e) }
           />
           Ascending
         </label>
-        <label htmlFor="sort-ordenation">
+        <label
+          htmlFor="sort-desc"
+          className="sort-label"
+        >
           <input
             data-testid="column-sort-input-desc"
             type="radio"
-            id="sort-ordenation"
+            id="sort-desc"
             name="sort"
             value="DESC"
             onChange={ (e) => handleColumnSort(e) }

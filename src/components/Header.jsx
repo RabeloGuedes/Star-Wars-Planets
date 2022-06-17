@@ -14,6 +14,17 @@ function Header() {
         src="https://cssanimation.rocks/demo/starwars/images/wars.svg"
         alt="wars"
       />
+      <div
+        className="planets-title"
+      >
+        <p className="letter">P</p>
+        <p className="letter">L</p>
+        <p className="letter">A</p>
+        <p className="letter">N</p>
+        <p className="letter">E</p>
+        <p className="letter">T</p>
+        <p className="letter">S</p>
+      </div>
     </StyledHeader>
   );
 }

@@ -4,7 +4,7 @@ import { keyframes } from 'styled-components';
 const starAnimation = keyframes`
   0% {
     opacity: 0;
-    transform: scale(1.5) translateY(-0.75em);
+    transform: scale(2.5) translateY(-0.75em);
   }
   20% {
     opacity: 1;
@@ -17,13 +17,25 @@ const starAnimation = keyframes`
 const warsAnimation = keyframes`
   0% {
     opacity: 0;
-    transform: scale(1.5) translateY(0.5em);
+    transform: scale(2.5) translateY(0.5em);
   }
   20% {
     opacity: 1;
   }
   100% {
     transform: scale(1);
+  }
+`;
+
+const turnLetters = keyframes`
+  0% {
+    transform: rotateY(90deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  100% {
+    transform: rotateY(0deg);
   }
 `;
 
@@ -43,5 +55,17 @@ export const StyledHeader = styled.header`
     animation: ${ warsAnimation } 5s linear;
     margin-bottom: 50px;
     z-index: -2;
+  }
+
+  .planets-title {
+    color: white;
+    font-size: 100px;
+    letter-spacing: 30px;
+    text-align: center;
+  }
+
+  .letter {
+    display: inline-block;
+    animation: ${ turnLetters } 10s linear
   }
 `;

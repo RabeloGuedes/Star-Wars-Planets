@@ -25,10 +25,6 @@ export default function Provider({ children }) {
       terrain: 'terrain',
       surface_water: 'surface water',
       population: 'population',
-      films: 'films',
-      created: 'created',
-      edited: 'edited',
-      url: 'url',
     },
   };
   const [planets, setPlanets] = useState([]);
